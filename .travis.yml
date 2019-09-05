@@ -1,17 +1,18 @@
-language: node_js # 构建所需的语言环境
-node_js:
-  - "v11.14.0"  # 对应的版本
-branches:
-  only:
-  - master    # 构建的分支
+language: node_js
+# nodejs版本
+node_js: 
+     - "v11.14.0"  # 对应的版本
+# Travis-CI Caching
 cache:
   directories:
-  - node_modules # 依赖缓存的目录
+    - node_modules
+# S: Build Lifecycle
 install:
- - npm install -g gitbook-cli # 安装编译工具
+  - npm install
+before_script:
+# 无其他依赖项所以执行npm run build 构建就行了
 script:
-- yarn install
-- yarn test
+  - npm run build
 deploy:
   provider: pages
   skip-cleanup: true
@@ -20,3 +21,6 @@ deploy:
   verbose: true
   on:
     branch: master
+branches:
+  only:
+    - master
