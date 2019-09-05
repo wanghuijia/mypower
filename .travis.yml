@@ -1,7 +1,8 @@
 language: node_js
 # nodejs版本
 node_js: 
-   - "v11.14.0"  # 对应的版本
+    - '6'
+
 # Travis-CI Caching
 cache:
   directories:
@@ -21,8 +22,11 @@ script:
 after_script:
   - cd ./dist
   - git init
+  - git config user.name "${U_NAME}"
+  - git config user.email "${U_EMAIL}"
   - git add .
   - git commit -m "Update tools"
+  - git push --force --quiet "https://${GITHUB_TOKEN}@${GH_REF}" master:${P_BRANCH}
 # E: Build LifeCycle
 
 #指定分支，只有指定的分支提交时才会运行脚本
